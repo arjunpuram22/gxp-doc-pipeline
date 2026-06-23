@@ -6,7 +6,7 @@ metadata:
   labels:
     app: doc-generator
     compliance: gxp
-    version: v1.0.0
+    version: v1.0.1
 spec:
   replicas: 2
   selector:
@@ -17,7 +17,7 @@ spec:
       labels:
         app: doc-generator
         compliance: gxp
-        version: v1.0.0
+        version: v1.0.1
     spec:
       serviceAccountName: doc-generator-sa
       securityContext:
@@ -25,17 +25,15 @@ spec:
         runAsUser: 1000
       containers:
         - name: doc-generator
-          image: 583299526477.dkr.ecr.us-west-2.amazonaws.com/gxp-doc-pipeline/doc-generator:v1.0.0
+          image: 583299526477.dkr.ecr.us-west-2.amazonaws.com/gxp-doc-pipeline/doc-generator:v1.0.1
           ports:
             - containerPort: 8000
-          # Liveness probe - restart container if unhealthy
           livenessProbe:
             httpGet:
               path: /health
               port: 8000
             initialDelaySeconds: 10
             periodSeconds: 30
-          # Readiness probe - only send traffic when ready
           readinessProbe:
             httpGet:
               path: /health
