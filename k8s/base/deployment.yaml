@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doc-generator
+  namespace: gxp-doc
+  labels:
+    app: doc-generator
+    compliance: gxp
+    version: v1.0.0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: doc-generator
+  template:
+    metadata:
+      labels:
+        app: doc-generator
+        compliance: gxp
+        version: v1.0.0
+    spec:
+      serviceAccountName: doc-generator-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - name: doc-generator
+          image: 583299526477.dkr.ecr.us-west-2.amazonaws.com/gxp-doc-pipeline/doc-generator:v1.0.0
+          ports:
+            - containerPort: 8000
+          # Liveness probe - restart container if unhealthy
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          # Readiness probe - only send traffic when ready
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: "us-west-2"

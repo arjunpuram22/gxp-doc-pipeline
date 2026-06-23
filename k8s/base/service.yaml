@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: doc-generator-svc
+  namespace: gxp-doc
+  labels:
+    app: doc-generator
+    compliance: gxp
+spec:
+  selector:
+    app: doc-generator
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
