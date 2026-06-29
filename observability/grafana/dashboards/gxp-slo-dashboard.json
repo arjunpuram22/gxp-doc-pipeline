@@ -1,0 +1,100 @@
+{
+  "dashboard": {
+    "title": "GxP Document Pipeline — SLO Dashboard",
+    "tags": ["gxp", "slo", "compliance"],
+    "timezone": "UTC",
+    "panels": [
+      {
+        "title": "Document Generation Success Rate (SLO: 99.5%)",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{namespace=\"gxp-doc\",status!~\"5..\"}[5m])) / sum(rate(http_requests_total{namespace=\"gxp-doc\"}[5m])) * 100",
+            "legendFormat": "Success Rate %"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": 0},
+                {"color": "yellow", "value": 99},
+                {"color": "green", "value": 99.5}
+              ]
+            },
+            "unit": "percent"
+          }
+        }
+      },
+      {
+        "title": "API Latency P99 (SLO: < 500ms)",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{namespace=\"gxp-doc\"}[5m])) by (le)) * 1000",
+            "legendFormat": "P99 Latency ms"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": 0},
+                {"color": "yellow", "value": 400},
+                {"color": "red", "value": 500}
+              ]
+            },
+            "unit": "ms"
+          }
+        }
+      },
+      {
+        "title": "Pod Availability (SLO: 99%)",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(kube_pod_status_ready{namespace=\"gxp-doc\",condition=\"true\"}) / sum(kube_pod_status_ready{namespace=\"gxp-doc\"}) * 100",
+            "legendFormat": "Pod Availability %"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": 0},
+                {"color": "yellow", "value": 95},
+                {"color": "green", "value": 99}
+              ]
+            },
+            "unit": "percent"
+          }
+        }
+      },
+      {
+        "title": "Pod Restarts (Last 1h)",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 18, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"gxp-doc\"}[1h]))",
+            "legendFormat": "Restarts"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": 0},
+                {"color": "yellow", "value": 3},
+                {"color": "red", "value": 5}
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+# GxP Document Pipeline — SLO Definitions
+# These targets are monitored via Grafana dashboards
+# Breaching these SLOs triggers Alertmanager notifications
+
+slos:
+  document_generation_success_rate:
+    target: 99.5%
+    window: 30d
+    description: >
+      At least 99.5% of document generation requests must succeed.
+      Failure means a pharma company cannot generate required regulatory documents.
+      Impact: FDA submission delays, potential compliance violations.
+
+  api_latency_p99:
+    target: 500ms
+    window: 30d
+    description: >
+      99th percentile API response time must stay under 500ms.
+      Slow document generation blocks regulated workflows.
+      Impact: User productivity loss, SLA violations with enterprise customers.
+
+  pod_availability:
+    target: 99%
+    window: 30d
+    description: >
+      At least 99% of desired pods must be ready at all times.
+      Pod unavailability means reduced capacity for document generation.
+      Impact: Increased latency, potential request failures under load.
+
+  deployment_success_rate:
+    target: 99%
+    window: 30d
+    description: >
+      At least 99% of ArgoCD deployments must complete successfully.
+      Failed deployments mean new features and fixes cannot reach production.
+      Impact: Development velocity loss, delayed bug fixes.

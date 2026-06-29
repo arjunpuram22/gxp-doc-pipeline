@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gxp-doc-generator-monitor
+  namespace: monitoring
+  labels:
+    release: monitoring
+    compliance: gxp
+spec:
+  namespaceSelector:
+    matchNames:
+      - gxp-doc
+  selector:
+    matchLabels:
+      app: doc-generator
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
