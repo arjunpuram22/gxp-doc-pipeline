@@ -39,19 +39,19 @@ This project builds the infrastructure layer that makes AI document generation t
 ## GxP Compliance Features
 
 **Audit Trail**
-Every document generation request is logged with: who requested it, what they requested, when, from which IP, how long it took, and whether it succeeded. Audit records cannot be deleted — enforced at the database level via PostgreSQL trigger.
+Every document generation request is logged with: who requested it, what they requested, when, from which IP, how long it took, and whether it succeeded. Audit records cannot be deleted - enforced at the database level via PostgreSQL trigger.
 
 **Secrets Management**
-API keys and credentials are never hardcoded or stored in environment variables. All secrets are fetched at runtime from AWS Secrets Manager via IRSA — pod-level IAM authentication without shared credentials.
+API keys and credentials are never hardcoded or stored in environment variables. All secrets are fetched at runtime from AWS Secrets Manager via IRSA - pod-level IAM authentication without shared credentials.
 
 **Immutable Image Tags**
-Every Docker image gets a unique version tag. Images are never overwritten — v1.0.0 always refers to the same code. Required for GxP traceability.
+Every Docker image gets a unique version tag. Images are never overwritten - v1.0.0 always refers to the same code. Required for GxP traceability.
 
-**RBAC — Least Privilege**
+**RBAC - Least Privilege**
 Three roles defined: doc-generator-role (service, minimal access), audit-reader-role (compliance auditors, read-only), developer-role (engineers, namespace-scoped). No role has more permissions than needed.
 
-**GitOps — Validated Deployments**
-Every deployment is tied to a Git commit. ArgoCD selfHeal means manual changes to the cluster are automatically reverted — the Git repository is always the source of truth.
+**GitOps - Validated Deployments**
+Every deployment is tied to a Git commit. ArgoCD selfHeal means manual changes to the cluster are automatically reverted - the Git repository is always the source of truth.
 
 **Encryption**
 KMS key with automatic rotation encrypts all cluster secrets. ECR images are encrypted at rest with AES-256. All database connections require SSL.
@@ -105,7 +105,7 @@ Customer-managed KMS key with automatic rotation encrypts all EKS cluster secret
 
 ![ArgoCD Dashboard](screenshots/08-argocd-dashboard.png)
 
-ArgoCD watches the GitHub repository and automatically deploys any changes to the cluster. Every deployment is tied to a Git commit — complete, auditable deployment history.
+ArgoCD watches the GitHub repository and automatically deploys any changes to the cluster. Every deployment is tied to a Git commit - complete, auditable deployment history.
 
 ![ArgoCD App Detail](screenshots/09-argocd-app-detail.png)
 
