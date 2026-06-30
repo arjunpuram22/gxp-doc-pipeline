@@ -10,10 +10,10 @@ A production-grade, GxP-compliant AI document generation platform built on AWS E
 
 Life sciences companies like pharma and medical device manufacturers must generate thousands of regulatory documents — INDs, NDAs, Design History Files, Clinical Trial protocols — across the entire product lifecycle. These documents must be:
 
-- **Accurate** — wrong data in an FDA submission causes rejection
-- **Auditable** — every change must be traceable to a person and timestamp
-- **Reliable** — a pipeline outage during an FDA submission deadline is catastrophic
-- **Secure** — patient data and proprietary drug information cannot be exposed
+- **Accurate** - wrong data in an FDA submission causes rejection
+- **Auditable** - every change must be traceable to a person and timestamp
+- **Reliable** - a pipeline outage during an FDA submission deadline is catastrophic
+- **Secure** - patient data and proprietary drug information cannot be exposed
 
 This project builds the infrastructure layer that makes AI document generation trustworthy in a regulated environment.
 
