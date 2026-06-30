@@ -19,40 +19,6 @@ This project builds the infrastructure layer that makes AI document generation t
 
 ---
 
-## Architecture
-GitHub Repository
-
-|
-
-v
-
-ArgoCD (GitOps) --> Detects changes --> Deploys to EKS
-
-|
-
-v
-
-AWS EKS Cluster (us-west-2)
-
-|-- Namespace: gxp-doc
-
-|   |-- doc-generator (2 replicas) --> AWS Secrets Manager
-
-|   |-- RBAC Roles (least privilege)
-
-|   -- ServiceAccount (IRSA -> IAM Role) |-- Namespace: monitoring |   |-- Prometheus (metrics collection) |   |-- Grafana (SLO dashboards) |   -- Alertmanager (alert routing)
-
--- Namespace: argocd     -- ArgoCD (GitOps controller)
-AWS Infrastructure (Terraform)
-
-|-- VPC (10.0.0.0/16)
-
-|   |-- Private Subnets (EKS nodes) - us-west-2a, us-west-2b
-
-|   -- Public Subnets (Load balancers) - us-west-2a, us-west-2b |-- EKS Cluster (Kubernetes 1.32) |-- KMS Key (auto-rotation enabled) |-- ECR Repository (image scanning enabled) -- Secrets Manager (API keys, credentials)
-
----
-
 ## Tech Stack
 
 | Layer | Technology |
