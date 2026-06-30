@@ -8,7 +8,7 @@ A production-grade, GxP-compliant AI document generation platform built on AWS E
 
 ## The Problem This Solves
 
-Life sciences companies like pharma and medical device manufacturers must generate thousands of regulatory documents — INDs, NDAs, Design History Files, Clinical Trial protocols — across the entire product lifecycle. These documents must be:
+Life sciences companies like pharma and medical device manufacturers must generate thousands of regulatory documents — INDs, NDAs, Design History Files, Clinical Trial protocols - across the entire product lifecycle. These documents must be:
 
 - **Accurate** - wrong data in an FDA submission causes rejection
 - **Auditable** - every change must be traceable to a person and timestamp
