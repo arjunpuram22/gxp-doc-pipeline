@@ -106,55 +106,6 @@ All containers run as a dedicated non-root user (gxpuser). Enforced at both the 
 
 ---
 
-## Project Structure
-gxp-doc-pipeline/
-
-|-- terraform/
-
-|   |-- modules/
-
-|   |   |-- vpc/          # VPC, subnets, NAT gateway
-
-|   |   |-- eks/          # EKS cluster, node groups
-
-|   |   |-- rds/          # PostgreSQL for audit logs
-
-|   |   -- secrets/      # Secrets Manager configuration |   -- environments/
-
-|       -- prod/         # Production environment config |-- k8s/ |   -- base/             # Kubernetes manifests (ArgoCD deploys these)
-
-|       |-- namespace.yaml
-
-|       |-- deployment.yaml
-
-|       |-- service.yaml
-
-|       |-- serviceaccount.yaml
-
-|       -- rbac.yaml |-- argocd/ |   -- application.yaml  # ArgoCD application config
-
-|-- services/
-
-|   -- doc-generator/    # FastAPI document generation service |       |-- main.py |       |-- requirements.txt |       -- Dockerfile
-
-|-- observability/
-
-|   |-- prometheus/       # ServiceMonitor, SLO definitions
-
-|   -- grafana/          # Dashboard configurations |-- compliance/ |   -- audit-logger/     # GxP audit trail schema and logger
-
-|-- runbooks/             # Operational incident response
-
-|   |-- 01-document-generation-down.md
-
-|   |-- 02-secrets-rotation-failure.md
-
-|   -- 03-argocd-deployment-failure.md |-- docs/ |   -- postmortem-001.md # Real incident postmortem
-
-`-- screenshots/          # Project proof screenshots
-
----
-
 ## Infrastructure
 
 ### VPC and Networking
